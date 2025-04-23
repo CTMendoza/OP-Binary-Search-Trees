@@ -8,7 +8,8 @@ class Node {
 
 class Tree {
     constructor (array) {
-        this.root = this.buildTree(array)
+        this.sortedArray = this.sortArray(array)
+        this.root = this.buildTree(this.sortedArray)
     }
 
     buildTree(array) {
@@ -26,8 +27,19 @@ class Tree {
         return root
     }
 
+    sortArray(array) {
+        // sort Array
+        let sorted = array.sort((a,b)=> a-b)
+        // remove duplicate elements
+        let deduped = sorted.filter((element, index) => element !== sorted[index -1] )
+        return deduped
+
+    }
+
 }
 
-const tree =  new Tree([1,2,3,4,5,6,7,8,9])
+const tree =  new Tree([1,   3,    4,  5,
+    7,   8,    9, 23,
+   67, 324, 6345])
 
-console.log(tree.root)
+   console.log(JSON.stringify(tree.root, null, 2));
