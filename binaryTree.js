@@ -36,10 +36,35 @@ class Tree {
 
     }
 
+    insert(value) {
+        this.root = this.recursiveInsert(this.root, value)   
+    }
+
+    recursiveInsert(node,value) {
+        if(node === null) {
+          return new Node(value)
+        }
+
+        if(node.data === value) {
+            return 'Tree already has this value'
+        }
+
+        if(value < node.data) {
+            node.left = this.recursiveInsert(node.left, value)
+        }
+
+        if(value > node.data) {
+            node.right = this.recursiveInsert(node.right, value)
+        }
+
+        return node
+    }
 }
 
 const tree =  new Tree([1,   3,    4,  5,
     7,   8,    9, 23,
    67, 324, 6345])
+
+   tree.insert(42)
 
    console.log(JSON.stringify(tree.root, null, 2));
