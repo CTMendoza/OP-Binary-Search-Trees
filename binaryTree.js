@@ -61,13 +61,13 @@ class Tree {
     }
 
     deleteItem(value) {
-        this.root = this.recursiveDelete(this.root, value)
+        this.root = this.#recursiveDelete(this.root, value)
         //delete a leaf node in bst
         //delete node with single child in bst
         //delete a Node with Both Children in BST
     }
 
-    recursiveDelete(node, value) {
+    #recursiveDelete(node, value) {
         if(node === null) {
             return node
         }
@@ -91,15 +91,15 @@ class Tree {
          // replace current node value with the inorder successor's value
          node.data = successor.data
          // Delete the inorder successor from the right subtree
-         node.right = this.recursiveDelete(node.right, successor.data)
+         node.right = this.#recursiveDelete(node.right, successor.data)
         }
 
         if(value < node.data) {
-            node.left = this.recursiveDelete(node.left, value)
+            node.left = this.#recursiveDelete(node.left, value)
         }
 
         if(value > node.data) {
-            node.right = this.recursiveDelete(node.right, value)
+            node.right = this.#recursiveDelete(node.right, value)
         }
 
         return node
