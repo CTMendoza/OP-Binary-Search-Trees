@@ -59,12 +59,55 @@ class Tree {
 
         return node
     }
+
+    deleteItem(value) {
+        this.root = this.recursiveDelete(this.root, value)
+        //delete a leaf node in bst
+        //delete node with single child in bst
+        //delete a Node with Both Children in BST
+    }
+
+    recursiveDelete(node, value) {
+        if(node === null) {
+            return node
+        }
+         //delete a leaf node in bst
+        if(node.data === value && node.left === null && node.right === null) {
+            return null
+        }
+
+        //delete node with single child in bst
+        if(node.data === value && (node.left === null || node.right === null)) {
+            return node.left || node.right; 
+        }
+
+        //delete a Node with Both Children in BST 
+        if(node.data === value && node.left !== null && node.right !== null) {
+        let successor = node.right
+        // // Find the leftmost node in the right subtree (inorder successor)
+         while(successor.left !== null) {
+            successor = successor.left
+         }
+         // replace current node value with the inorder successor's value
+         node.data = successor.data
+         // Delete the inorder successor from the right subtree
+         node.right = this.recursiveDelete(node.right, successor.data)
+        }
+
+        if(value < node.data) {
+            node.left = this.recursiveDelete(node.left, value)
+        }
+
+        if(value > node.data) {
+            node.right = this.recursiveDelete(node.right, value)
+        }
+
+        return node
+    }
+
 }
 
-const tree =  new Tree([1,   3,    4,  5,
-    7,   8,    9, 23,
-   67, 324, 6345])
+const tree =  new Tree([50,30,80,70,40,20])
+tree.deleteItem(30)
 
-   tree.insert(42)
-
-   console.log(JSON.stringify(tree.root, null, 2));
+console.log(tree.root);
