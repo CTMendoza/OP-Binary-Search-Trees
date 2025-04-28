@@ -121,9 +121,30 @@ class Tree {
       return `value not found`
     }
 
+   levelOrder(callback) {
+        let queue = []
+        if(callback === undefined){
+            throw new Error('callback function is required')
+        }
+        queue.push(this.root)
+        while(queue.length !== 0) {
+            let firstElement = queue.shift()
+            callback(firstElement)
+            if(firstElement.left !== null) {
+                queue.push(firstElement.left)
+            }
+             if(firstElement.right !== null) {
+                queue.push(firstElement.right)
+            }
+        }
+   }
+
 }
 
 const tree =  new Tree([50,30,80,70,40,20])
 console.log(tree.find(80))
 
 console.log(tree.root);
+
+tree.levelOrder((node) => console.log(node.data))
+
