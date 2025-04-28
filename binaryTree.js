@@ -105,9 +105,25 @@ class Tree {
         return node
     }
 
+    //Write a find(value) function that returns the node with the given value.
+    find(value) {
+        let root = this.root
+        while(root !==null) {
+            if(root.data === value) {
+                return root
+            }
+            else if( value < root.data) {
+                root = root.left
+            }
+
+            else root = root.right
+        }
+      return `value not found`
+    }
+
 }
 
 const tree =  new Tree([50,30,80,70,40,20])
-tree.deleteItem(30)
+console.log(tree.find(80))
 
 console.log(tree.root);
