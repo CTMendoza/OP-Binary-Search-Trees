@@ -139,6 +139,61 @@ class Tree {
         }
    }
 
+   inOrder(callback){
+    function traverse(node) {
+        if(node ===  null) {
+            return
+        }
+        //visit left subtree
+        traverse(node.left)
+        //visit root subtree
+        callback(node)
+        // visit right subtree
+        traverse(node.right)
+    }
+    if(callback === undefined){
+        throw new Error('callback function is required')
+    }
+    traverse(this.root)  
+   }
+   
+   preOrder(callback) {
+    function traverse(node) {
+        if(node === null) {
+            return
+        }
+        //visit root
+        callback(node)
+        //visit left subtree
+        traverse(node.left)
+        //visit right subtree
+        traverse(node.right)
+    }
+   
+    if(callback === undefined) {
+        throw new Error('callback function is required')
+    }
+    traverse(this.root)
+   }
+
+   postOrder(callback) {
+    function traverse(node) {
+        if(node ===  null) {
+            return
+        }
+         //visit left subtree
+        traverse(node.left)
+        //visit right subtree
+        traverse(node.right)
+        //visit root 
+        callback(node)
+    }
+
+    if(callback === undefined) {
+        throw new Error('callback function is required')
+    }
+    traverse(this.root)
+   }
 }
 
 const tree =  new Tree([50,30,80,70,40,20])
@@ -146,5 +201,7 @@ console.log(tree.find(80))
 
 console.log(tree.root);
 
-tree.levelOrder((node) => console.log(node.data))
+tree.inOrder((node)=> console.log(node.data))
+
+tree.preOrder((node)=> console.log(node.data))
 
