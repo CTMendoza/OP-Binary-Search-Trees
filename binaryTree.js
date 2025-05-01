@@ -118,7 +118,7 @@ class Tree {
 
             else root = root.right
         }
-      return `value not found`
+      return null
     }
 
    levelOrder(callback) {
@@ -194,14 +194,33 @@ class Tree {
     }
     traverse(this.root)
    }
+
+   height(value) {
+    let node = this.find(value)
+    
+    function getHeight(node) {
+
+    //Height is defined as the number of edges in the longest path from that node to a leaf node.
+        if(node === null) {
+            return -1
+        }
+        let rightHeight= getHeight(node.right)
+
+        let leftHeight  = getHeight(node.left)
+
+        return Math.max(rightHeight, leftHeight) + 1
+    }
+
+    if(node === null) return null
+    return getHeight(node)
+   }
 }
 
-const tree =  new Tree([50,30,80,70,40,20])
+const tree =  new Tree([50,30,80,70,40,20,60,55])
 console.log(tree.find(80))
+console.log(tree.height(50))
 
 console.log(tree.root);
-
-tree.inOrder((node)=> console.log(node.data))
 
 tree.preOrder((node)=> console.log(node.data))
 
