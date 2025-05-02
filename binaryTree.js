@@ -214,11 +214,34 @@ class Tree {
     if(node === null) return null
     return getHeight(node)
    }
+   
+   // Depth is defined as the number of edges in the path from that node to the root node.
+   //  If the value is not found in the tree, the function should return null.
+   depth(value) {
+    let currentNode= this.root
+    if(currentNode === null) {
+        return null
+    }
+    function findDepth(node, depth) {
+        if(node === null) return null
+        if(node.data === value) {
+            return depth
+        }
+        if(value < node.data) {
+            return findDepth(node.left, depth + 1)
+        }
+        if(value > node.data) {
+            return findDepth(node.right, depth + 1)
+        }
+     }
+     return findDepth(currentNode, 0)        
+   }
 }
 
 const tree =  new Tree([50,30,80,70,40,20,60,55])
 console.log(tree.find(80))
 console.log(tree.height(50))
+console.log(tree.depth(20))
 
 console.log(tree.root);
 
