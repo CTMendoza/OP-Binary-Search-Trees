@@ -236,14 +236,25 @@ class Tree {
      }
      return findDepth(currentNode, 0)        
    }
+
+   isBalanced() {
+    let currentNode = this.root
+    function checkBalance(node) {
+        if(node === null) {
+            return 0
+        }
+        let leftBalance = checkBalance(node.left)
+        let rightBalance = checkBalance(node.right)
+        if (leftBalance === null|| rightBalance === null) return null;
+        if (Math.abs(leftBalance - rightBalance) > 1) return null;
+        return Math.max(leftBalance, rightBalance) + 1;
+     }
+     return checkBalance(currentNode) !== null
+   }
 }
 
 const tree =  new Tree([50,30,80,70,40,20,60,55])
-console.log(tree.find(80))
-console.log(tree.height(50))
-console.log(tree.depth(20))
 
 console.log(tree.root);
 
-tree.preOrder((node)=> console.log(node.data))
 
