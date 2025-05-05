@@ -251,10 +251,26 @@ class Tree {
      }
      return checkBalance(currentNode) !== null
    }
+   
+   rebalance() {
+    if(this.isBalanced()) return
+    let nodes = []
+    this.inOrder((node) => nodes.push(node.data))
+    this.root = this.buildTree(nodes)
+   }
 }
 
-const tree =  new Tree([50,30,80,70,40,20,60,55])
+const tree = new Tree([10]);
+tree.insert(20);
+tree.insert(30);
+tree.insert(40);
+tree.insert(50);
 
 console.log(tree.root);
+console.log(tree.isBalanced())
+tree.rebalance()
+console.log(tree.root);
+console.log(tree.isBalanced())
+
 
 
